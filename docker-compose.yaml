@@ -1,0 +1,14 @@
+version: '3.5'
+
+networks:
+  network:
+    driver: bridge
+
+services:
+  eureka-server:
+    image: amigoscode/eureka-server:latest
+    ports:
+      - '8761:8761'
+    environment:
+      eureka.instance.hostname: eureka-server
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka

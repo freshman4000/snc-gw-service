@@ -1,0 +1,41 @@
+version: '3.5'
+
+services:
+
+  #mongo db  single node
+  mongodb:
+    container_name: server_mongodb
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    command: mongod --auth
+    ports:
+      - "37018:27017"
+    expose:
+      - 37018
+    networks:
+      - network
+
+  zookeeper:
+    container_name: inui_zookeeper
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    container_name: inui_kafka
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  mongodb:
+  mongoconfig:
