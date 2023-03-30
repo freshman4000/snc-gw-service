@@ -20,7 +20,8 @@ repositories {
         }
     }
 }
-var versionModel = '0.0.5-SNAPSHOT'
+var kafkaStarterVersion = '0.0.5-SNAPSHOT'
+var versionModel = '0.0.1-SNAPSHOT'
 ext {
     set('springCloudVersion', "2021.0.6")
 }
@@ -29,7 +30,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-    implementation group: 'com.snc', name: 'snc-kafka-starter', version:versionModel
+    implementation group: 'com.snc', name: 'snc-kafka-starter', version:kafkaStarterVersion
+    implementation group: 'snc', name: 'snc-models', version:versionModel
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'

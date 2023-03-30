@@ -1,6 +1,5 @@
 package com.snc.gatewayapi.controllers;
 
-import com.snc.gatewayapi.models.BetRq;
 import com.snc.gatewayapi.services.BettingService;
 import com.snc.snckafkastarter.models.Headers;
 import com.snc.snckafkastarter.models.KafkaMessage;
@@ -9,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+import snc.sncmodels.services.betting.rq.BetRq;
 
 @RestController
 @RequestMapping("/betting")
