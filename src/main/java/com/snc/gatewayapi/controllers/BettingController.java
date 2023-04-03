@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import snc.sncmodels.services.betting.rq.BetRq;
+import snc.sncmodels.services.betting.rq.TopUpRq;
 
 @RestController
 @RequestMapping("/betting")
@@ -20,6 +21,7 @@ public class BettingController {
     @PostMapping("/bet")
     public Mono<ResponseEntity<KafkaMessage>> makeBet(@RequestHeader(Headers.USER_ID) String userId,
                                                       @RequestBody BetRq betRq) {
+        betRq.setUserId(userId);
         return bettingService.makeBet(userId, betRq);
     }
 }

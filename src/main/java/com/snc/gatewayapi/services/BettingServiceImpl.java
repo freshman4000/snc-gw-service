@@ -4,6 +4,8 @@ import com.snc.snckafkastarter.converters.KafkaMessageCreator;
 import com.snc.snckafkastarter.kafka.MessageService;
 import com.snc.snckafkastarter.models.Headers;
 import com.snc.snckafkastarter.models.KafkaMessage;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,9 +28,9 @@ public class BettingServiceImpl implements BettingService{
 
     @Override
     public Mono<ResponseEntity<KafkaMessage>> makeBet(String userId, BetRq betRq) {
-        betRq.setUserId(userId);
         Map<String, String> headers = new HashMap<>();
         headers.put("X-TOPIC", "snc-betting-service");
+        headers.put(Headers.USER_ID, userId);
         headers.put(Headers.EVENT_NAME, Events.MAKE_MANUAL_BET);
         messageService.sendMessage(kafkaMessageCreator.getMessage(betRq, headers), "snc-betting-service");
         return Mono.just(new ResponseEntity<>(kafkaMessageCreator.getSuccessMessage("Message sent", headers), HttpStatus.OK));
